@@ -12,12 +12,9 @@ class Login_Window(QDialog):
 
     def __init__(self):
         super().__init__()
-
         self.init_ui()
 
-
     def init_ui(self):
-
         self.label1 = QLabel("E-Mail:")
         self.label2 = QLabel("Password:")
         self.email = QLineEdit()
@@ -53,14 +50,10 @@ class Login_Window(QDialog):
         self.setLayout(v_box)
 
 
-
 class Mail_Window(QWidget):
-
     def __init__(self):
         super().__init__()
-
         self.init_ui()
-
 
     def init_ui(self):
         self.text_area = QTextEdit()
@@ -83,14 +76,12 @@ class Mail_Window(QWidget):
         self.setLayout(grid)
 
 
-
 class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-
         self.start_login_window()
-
+        
 
     def start_login_window(self):
         self.login_window = Login_Window()
@@ -151,32 +142,19 @@ class MainWindow(QMainWindow):
 
     def mail_sender(self):
         message = MIMEMultipart()
-
         message["From"] = self.email_adress
-
         message["To"] = self.mail_window.whom.text()
-
         message["Subject"] = self.mail_window.subject.text()
-
         text = self.mail_window.text_area.toPlainText()
-
         body = MIMEText(text, "plain")
-
         message.attach(body)
 
-
         mail = smtplib.SMTP("smtp.gmail.com", 587)
-
         mail.ehlo()
-
         mail.starttls()
-
         mail.login(self.email_adress, self.password_code)
-
         mail.sendmail(message["From"], message["To"],  message.as_string())
-
         print("Your mail has been sent to {}".format(self.mail_window.whom.text()))
-
         mail.close()
 
 
@@ -185,9 +163,6 @@ class MainWindow(QMainWindow):
 
 def run():
     app = QApplication(sys.argv)
-
     lo = MainWindow()
-
     sys.exit(app.exec_())
-
 run()
